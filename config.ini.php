@@ -2,9 +2,9 @@
 ; file automatically generated or modified by Matomo; you can manually override the default values in global.ini.php by redefining them in this file.
 [database]
 host = "$MATOMO_DATABASE_HOST"
-username = "$MATOMO_DATABASE_USERNAME"
+username = "$MATOMO_DATABASE_USER"
 password = "$MATOMO_DATABASE_PASSWORD"
-dbname = "$MATOMO_DATABASE_DBNAME"
+dbname = "$MATOMO_DATABASE_NAME"
 enable_ssl = "$MATOMO_DATABASE_ENABLE_SSL"
 ssl_no_verify = "$MATOMO_DATABASE_SSL_NO_VERIFY"
 tables_prefix = "matomo_"
