@@ -3,6 +3,7 @@ LABEL org.opencontainers.image.description "Matomo, formerly Piwik, is the most 
 
 ENV MATOMO_DATABASE_ENABLE_SSL=0
 ENV MATOMO_DATABASE_SSL_NO_VERIFY=0
+ENV MATOMO_DATABASE_PORT_NUMBER=3306
 
 RUN set -ex && \
   apt-get update && \
