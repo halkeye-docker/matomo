@@ -16,7 +16,7 @@ COPY download_plugins.sh entrypoint.sh /
 RUN chmod 755 /entrypoint.sh /download_plugins.sh && \
   mkdir /plugins && \
   ROOTDIR=/ /download_plugins.sh && \
-	tar cf - --one-file-system -C /usr/src/matomo . | tar xf - && \
+	tar cf - --one-file-system -C /usr/src/matomo . | tar xf - -C /var/www/html && \
 	chown -R www-data:www-data . && \
 	mkdir -p /var/www/html/plugins/SecurityInfo && \
     tar xzf /plugins/plugin-*.tgz --strip-components 1 -C /var/www/html/plugins/SecurityInfo && \
@@ -24,6 +24,6 @@ RUN chmod 755 /entrypoint.sh /download_plugins.sh && \
     tar xzf /plugins/matomo-*.tgz --strip-components 1 -C /var/www/html/plugins/LoginOIDC
 
 COPY config.ini.php /config.ini.tmpl
-RUN chown 1001:1001 /var/www/html/config/config.ini.php
+RUN touch /var/www/html/config/config.ini.php && chown 1001:1001 /var/www/html/config/config.ini.php
 USER 1001
 
