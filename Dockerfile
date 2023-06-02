@@ -19,13 +19,13 @@ RUN chmod 755 /entrypoint.sh /download_plugins.sh && \
   perl -pi -e 's{VirtualHost *:80}{VirtualHost *:8080}g' /etc/apache2/sites-available/000-default.conf && \
   perl -pi -e 's{Listen 80}{Listen 8080}' /etc/apache2/ports.conf && \
   mkdir -p /var/www/html && \
-  chown -R 1000:1000 /var/www/html
+  chown -R 1001:1001 /var/www/html
 
 COPY config.ini.php /config.ini.tmpl
 
 WORKDIR /var/www/html
 RUN tar cf - --one-file-system -C /usr/src/matomo . | tar xf - -C /var/www/html && \
-  chown -R 1000:1000 . && \
+  chown -R 1001:1001 . && \
   mkdir -p /var/www/html/plugins/SecurityInfo && \
     tar xzf /plugins/plugin-*.tgz --strip-components 1 -C /var/www/html/plugins/SecurityInfo && \
   mkdir -p /var/www/html/plugins/LoginOIDC && \
@@ -35,4 +35,4 @@ RUN tar cf - --one-file-system -C /usr/src/matomo . | tar xf - -C /var/www/html 
     find /var/www/html/tmp -type d -exec chmod 755 {} \; && \
     find /var/www/html/tmp/{assets,cache,logs,tcpdf,templates_c}/ -type f -exec chmod 644 {} \; && \
     find /var/www/html/tmp/{assets,cache,logs,tcpdf,templates_c}/ -type d -exec chmod 755 {} \;
-USER 1000
+USER 1001
