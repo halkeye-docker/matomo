@@ -10,18 +10,20 @@ RUN set -ex && \
     gettext-base=0.21-4 \
     wget=1.21-1+deb11u1 && \
   apt-get clean && \
-	rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/*
 
 COPY download_plugins.sh entrypoint.sh /
 RUN chmod 755 /entrypoint.sh /download_plugins.sh && \
   mkdir /plugins && \
   ROOTDIR=/ /download_plugins.sh && \
-	tar cf - --one-file-system -C /usr/src/matomo . | tar xf - -C /var/www/html && \
-	chown -R www-data:www-data . && \
-	mkdir -p /var/www/html/plugins/SecurityInfo && \
+  tar cf - --one-file-system -C /usr/src/matomo . | tar xf - -C /var/www/html && \
+  chown -R www-data:www-data . && \
+  mkdir -p /var/www/html/plugins/SecurityInfo && \
     tar xzf /plugins/plugin-*.tgz --strip-components 1 -C /var/www/html/plugins/SecurityInfo && \
-	mkdir -p /var/www/html/plugins/LoginOIDC && \
-    tar xzf /plugins/matomo-*.tgz --strip-components 1 -C /var/www/html/plugins/LoginOIDC
+  mkdir -p /var/www/html/plugins/LoginOIDC && \
+    tar xzf /plugins/matomo-*.tgz --strip-components 1 -C /var/www/html/plugins/LoginOIDC && \
+  perl -pi -e 's{VirtualHost *:80}{VirtualHost *:8080}g' /etc/apache2/sites-available/000-default.conf && \
+  perl -pi -e 's{Listen 80}{Listen 8080}' /etc/apache2/ports.conf
 
 COPY config.ini.php /config.ini.tmpl
 RUN touch /var/www/html/config/config.ini.php && chown 1001:1001 /var/www/html/config/config.ini.php
