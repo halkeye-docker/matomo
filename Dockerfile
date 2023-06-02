@@ -15,7 +15,13 @@ RUN set -ex && \
 COPY download_plugins.sh entrypoint.sh /
 RUN chmod 755 /entrypoint.sh /download_plugins.sh && \
   mkdir /plugins && \
-  ROOTDIR=/ /download_plugins.sh
+  ROOTDIR=/ /download_plugins.sh && \
+	tar cf - --one-file-system -C /usr/src/matomo . | tar xf - && \
+	chown -R www-data:www-data . && \
+	mkdir -p /var/www/html/plugins/SecurityInfo && \
+    tar xzf /plugins/plugin-*.tgz --strip-components 1 -C /var/www/html/plugins/SecurityInfo && \
+	mkdir -p /var/www/html/plugins/LoginOIDC && \
+    tar xzf /plugins/matomo-*.tgz --strip-components 1 -C /var/www/html/plugins/LoginOIDC
 
 COPY config.ini.php /config.ini.tmpl
 
