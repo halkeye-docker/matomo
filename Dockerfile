@@ -24,4 +24,6 @@ RUN chmod 755 /entrypoint.sh /download_plugins.sh && \
     tar xzf /plugins/matomo-*.tgz --strip-components 1 -C /var/www/html/plugins/LoginOIDC
 
 COPY config.ini.php /config.ini.tmpl
+RUN chown 1001:1001 /var/www/html/config/config.ini.php
+USER 1001
 
