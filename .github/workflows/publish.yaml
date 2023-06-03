@@ -2,7 +2,8 @@ name: Create and publish a Docker image
 
 on:
   push:
-  release:
+    branches:
+      - 'main'
   workflow_dispatch:
 
 env:
@@ -13,12 +14,23 @@ jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       packages: write
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18
+
+      - uses: codfish/semantic-release-action@v2
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
@@ -37,6 +49,6 @@ jobs:
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          push: ${{steps.semantic.outputs.new-release-published == 'true'}}
+          tags: v${{ steps.semantic.outputs.release-version }}
           labels: ${{ steps.meta.outputs.labels }}
