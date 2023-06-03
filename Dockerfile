@@ -37,3 +37,4 @@ RUN tar cf - --one-file-system -C /usr/src/matomo . | tar xf - -C /var/www/html 
     find /var/www/html/tmp/{assets,cache,logs,tcpdf,templates_c}/ -type f -exec chmod 644 {} \; && \
     find /var/www/html/tmp/{assets,cache,logs,tcpdf,templates_c}/ -type d -exec chmod 755 {} \;
 USER 1001
+RUN touch config/config.ini.php; ./console core:create-security-files
