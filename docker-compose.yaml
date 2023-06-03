@@ -5,12 +5,13 @@ services:
     build: .
     links:
       - db
+    user: "1001:1001"
     ports:
       - "8080:8080"
     environment:
       MATOMO_DATABASE_HOST: db
-      MATOMO_DATABASE_DBNAME: matomo
-      MATOMO_DATABASE_USERNAME: root
+      MATOMO_DATABASE_NAME: matomo
+      MATOMO_DATABASE_USER: root
       MATOMO_DATABASE_PASSWORD: my-secret-pw
       MATOMO_SALT: testsalt
       MATOMO_TRUSTED_HOSTS: "localhost:8080"

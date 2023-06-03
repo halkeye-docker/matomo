@@ -14,8 +14,8 @@ charset = "utf8mb4"
 [General]
 enable_load_data_infile = 0
 salt = "$MATOMO_SALT"
-force_ssl = 1
-assume_secure_protocol = 1
+force_ssl = $MATOMO_GENERAL_FORCE_SSL
+assume_secure_protocol = $MATOMO_GENERAL_ASSUME_SECURE_PROTOCOL
 proxy_client_headers[] = HTTP_X_FORWARDED_FOR
 proxy_host_headers[] = HTTP_X_FORWARDED_HOST
 #trusted_hosts
