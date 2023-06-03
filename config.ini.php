@@ -84,7 +84,6 @@ Plugins[] = "Tour"
 Plugins[] = "PagePerformance"
 Plugins[] = "CustomDimensions"
 Plugins[] = "SecurityInfo"
-Plugins[] = "LoginOIDC"
 
 [PluginsInstalled]
 PluginsInstalled[] = "Diagnostics"
@@ -150,6 +149,5 @@ PluginsInstalled[] = "Tour"
 PluginsInstalled[] = "PagePerformance"
 PluginsInstalled[] = "CustomDimensions"
 PluginsInstalled[] = "SecurityInfo"
-PluginsInstalled[] = "LoginOIDC"
 PluginsInstalled[] = "CoreVue"
 
