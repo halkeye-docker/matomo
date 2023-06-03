@@ -14,6 +14,10 @@ charset = "utf8mb4"
 [General]
 enable_load_data_infile = 0
 salt = "$MATOMO_SALT"
+force_ssl = 1
+assume_secure_protocol = 1
+proxy_client_headers[] = HTTP_X_FORWARDED_FOR
+proxy_host_headers[] = HTTP_X_FORWARDED_HOST
 #trusted_hosts
 
 [Plugins]
