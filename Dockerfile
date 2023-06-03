@@ -8,6 +8,7 @@ ENV MATOMO_DATABASE_PORT_NUMBER=3306
 RUN set -ex && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
+    libapache2-mod-geoip=1.2.10-1+b1 \
     gettext-base=0.21-4 \
     wget=1.21-1+deb11u1 && \
   apt-get clean && \
