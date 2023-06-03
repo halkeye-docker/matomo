@@ -36,6 +36,8 @@ RUN tar cf - --one-file-system -C /usr/src/matomo . | tar xf - -C /var/www/html 
     find /var/www/html/tmp -type d -exec chmod 755 {} \; && \
     find /var/www/html/tmp/{assets,cache,logs,tcpdf,templates_c}/ -type f -exec chmod 644 {} \; && \
     find /var/www/html/tmp/{assets,cache,logs,tcpdf,templates_c}/ -type d -exec chmod 755 {} \; && \
-    cd /var/www/html/misc && ln -s /usr/share/GeoIP/{GeoLite2-ASN.mmdb,GeoLite2-City.mmdb,GeoLite2-Country.mmdb} ./
+    cd /var/www/html/misc && ln -s /usr/share/GeoIP/GeoLite2-ASN.mmdb ./ && \
+    cd /var/www/html/misc && ln -s /usr/share/GeoIP/GeoLite2-City.mmdb ./ && \
+    cd /var/www/html/misc && ln -s /usr/share/GeoIP/GeoLite2-Country.mmdb ./
 USER 1001
 RUN touch config/config.ini.php; ./console core:create-security-files
